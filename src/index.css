@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.banner-logo svg {
+    fill: #b5d1ff;
+}
+
+.banner-logo.active svg {
+    fill: white;
+}
