@@ -23,7 +23,7 @@ const PaymentMethodSelector = ({
   return (
     <>
       <div id="payment-method-radio-group">
-        <h2 className="text-xl tracking-wide mb-[16px]">Способ оплаты</h2>
+        <h2 className="text-3xl tracking-wide mb-[16px]">Способ оплаты</h2>
         {/* TODO -> радио кнопка для выбора метода оплаты КАРТА | НАЛИЧНЫЕ <- */}
         <div
           role="group"
