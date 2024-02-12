@@ -1,12 +1,11 @@
 interface Banner {
   title: "Самовывоз" | "Доставка курьером"
   isActive: boolean
-  onClick: () => void
 }
 
-const Banner = ({ isActive, title, onClick }: Banner) => {
+const Banner = ({ isActive, title }: Banner) => {
   return (
-    <div className="w-[50%] h-[212px] max-w-[368px]" onClick={onClick}>
+    <div className=" h-[212px] max-w-[368px]">
       <div
         className={`p-4 h-full border-solid border-2 rounded-lg flex flex-col
                 ${isActive ? "border-blue-500 bg-[url('assets/link-checked.jpg')] bg-no-repeat bg-cover" : "border-blue-300 bg-['none']"}`}

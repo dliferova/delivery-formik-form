@@ -21,22 +21,24 @@ const CardInput: React.FC = () => {
   }
 
   return (
-    <div>
-      {cardNumber.map((part, index) => (
-        <input
-          className="border-2 border-slate-300 p-2 pl-5 mb-2 hover:border-sky-400"
-          key={index}
-          type="text"
-          value={part}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            handleInputChange(index, e.target.value)
-          }
-          maxLength={4}
-          style={{ width: "150px", marginRight: "5px" }}
-          ref={(input) => input && (inputRefs.current[index] = input)}
-        />
-      ))}
-    </div>
+    <>
+      <p className="text-zinc-500 mb-[12px]">Номер карты</p>
+      <div className="flex flex-row w-[484px]">
+        {cardNumber.map((part, index) => (
+          <input
+            className="border-2 border-slate-300 p-2 pl-5 mb-2 mr-[8px] hover:border-sky-400 w-[115px] last-of-type:mr-[0]"
+            key={index}
+            type="text"
+            value={part}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              handleInputChange(index, e.target.value)
+            }
+            maxLength={4}
+            ref={(input) => input && (inputRefs.current[index] = input)}
+          />
+        ))}
+      </div>
+    </>
   )
 }
 

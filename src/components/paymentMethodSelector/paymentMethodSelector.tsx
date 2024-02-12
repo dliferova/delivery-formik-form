@@ -2,14 +2,15 @@ import { PaymentVariants } from "../../types/enums.ts"
 import { useState } from "react"
 import CardPayment from "../cardPayment/cardPayment.tsx"
 import CashPayment from "../cashPayment/cashPayment.tsx"
-import { deliveryMethodType } from "../../types/types.ts"
+import { deliveryVariantTypes } from "../../types/types.ts"
+import RadioButton from "../ui/radioButton/radioButton.tsx"
 
 type activePaymentMethod = PaymentVariants.Cash | PaymentVariants.Card
 
 const PaymentMethodSelector = ({
   activeDeliveryType,
 }: {
-  activeDeliveryType: deliveryMethodType
+  activeDeliveryType: deliveryVariantTypes
 }) => {
   const [activePaymentVariant, setActivePaymentVariant] =
     useState<activePaymentMethod>(PaymentVariants.Card)
@@ -23,33 +24,27 @@ const PaymentMethodSelector = ({
   return (
     <>
       <div id="payment-method-radio-group">
-        <h2 className="text-3xl tracking-wide mb-[16px]">Способ оплаты</h2>
-        {/* TODO -> радио кнопка для выбора метода оплаты КАРТА | НАЛИЧНЫЕ <- */}
+        <h2 className="h2">Способ оплаты</h2>
         <div
           role="group"
-          aria-labelledby="payment-method-radio-group"
-          className="flex flex-row relative gap-2"
+          className="input-wrapper--radio-group flex flex-row mb-[29px] flex-wrap relative"
         >
-          <label>
-            <input
-              id={PaymentVariants.Card}
-              value={PaymentVariants.Card}
-              checked={activePaymentVariant === PaymentVariants.Card}
-              onChange={(e) => handleRadioChange(e)}
-              type="radio"
-            />
-            Карта
-          </label>
-          <label>
-            <input
-              id={PaymentVariants.Cash}
-              value={PaymentVariants.Cash}
-              checked={activePaymentVariant === PaymentVariants.Cash}
-              onChange={(e) => handleRadioChange(e)}
-              type="radio"
-            />
-            Наличные
-          </label>
+          <RadioButton
+            inputId={PaymentVariants.Card}
+            name={"card payment"}
+            value={PaymentVariants.Card}
+            checked={activePaymentVariant === PaymentVariants.Card}
+            onChange={(e) => handleRadioChange(e)}
+            label={"Карта"}
+          />
+          <RadioButton
+            inputId={PaymentVariants.Cash}
+            name={"cash payment"}
+            value={PaymentVariants.Cash}
+            checked={activePaymentVariant === PaymentVariants.Cash}
+            onChange={(e) => handleRadioChange(e)}
+            label={"Наличные"}
+          />
         </div>
       </div>
 

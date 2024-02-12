@@ -1,19 +1,25 @@
 import CustomInput from "../ui/customInput/customInput.tsx"
-import { deliveryMethodType } from "../../types/types.ts"
+import { deliveryVariantTypes } from "../../types/types.ts"
 import { PhoneInputRemark } from "../ui/phoneInputRemark/phoneInputRemark.tsx"
 import CardInput from "../ui/cardInput/cardInput.tsx"
 
 const CardPayment = ({
   activeDeliveryType,
 }: {
-  activeDeliveryType: deliveryMethodType
+  activeDeliveryType: deliveryVariantTypes
 }) => {
   return (
     <div>
-      <h2>Card Payment</h2>
-      <CardInput />
-      <CustomInput label={"Номер телефона"} placeholder={"+7(999)999-99-99"} />
-      <PhoneInputRemark activeDeliveryType={activeDeliveryType} />
+      <div className="flex flex-col">
+        <CardInput />
+        <div className="w-[484px]">
+          <CustomInput
+            label={"Номер телефона"}
+            placeholder={"+7(999)999-99-99"}
+          />
+          <PhoneInputRemark activeDeliveryType={activeDeliveryType} />
+        </div>
+      </div>
     </div>
   )
 }

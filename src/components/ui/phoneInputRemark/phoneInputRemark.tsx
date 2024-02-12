@@ -1,10 +1,12 @@
-import { deliveryMethodType } from "../../../types/types.ts"
+import { deliveryVariantTypes } from "../../../types/types.ts"
 
 export const PhoneInputRemark = ({
   activeDeliveryType,
 }: {
-  activeDeliveryType: deliveryMethodType
+  activeDeliveryType: deliveryVariantTypes
 }) => {
+  console.log("real", activeDeliveryType)
+
   return activeDeliveryType === 0 ? (
     <span className="text-sm text-slate-300">
       Товар на складе будет привязан к номеру телефона. В пункте выдачи назовите

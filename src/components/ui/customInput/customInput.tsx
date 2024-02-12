@@ -5,9 +5,9 @@ interface CustomInputProps {
 
 const CustomInput = ({ label, placeholder }: CustomInputProps) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-[100:]">
       {label !== undefined ? (
-        <label className="text-sm mb-2">{label}</label>
+        <label className="text-zinc-500 mb-[12px]">{label}</label>
       ) : (
         <></>
       )}

@@ -9,3 +9,61 @@
 .banner-logo.active svg {
     fill: white;
 }
+
+.input-wrapper--radio-group input:checked + label {
+    color: #ffffff;
+    background: #67a0f6;
+}
+
+.input-wrapper--radio-group label:first-of-type {
+    border-radius: 22px 0 0 22px;
+}
+
+.input-wrapper--radio-group label {
+    margin-right: 3px;
+    padding: 8px 24px;
+    background: #f2f2f2;
+    color: #444444;
+    cursor: pointer;
+    transition: background var(--transition-base), color var(--transition-base);
+}
+
+.input-wrapper--radio-group label:last-of-type {
+    margin-right: 0;
+    border-radius: 0 22px 22px 0;
+}
+
+@layer components {
+    .main {
+        @apply w-[920px] pt-[64px] pb-[80px] pl-[76px] pr-[76px] m-auto bg-white
+    }
+
+    .h2 {
+        @apply text-4xl font-bold mb-8
+    }
+
+    .btn {
+        @apply relative inline-block shrink-0 w-[auto] m-0 overflow-hidden
+        text-xl font-bold border-0 text-white tracking-wider uppercase text-center
+        bg-[#67a0f6] outline-none cursor-pointer select-none rounded-md
+        pt-[15px] pl-[32px] pb-[15px] pr-[32px]
+
+        hover:bg-[#397de1]
+    }
+
+    .hidden-radio-input {
+        @apply absolute w-[1px] h-[1px] m-[-1] outline-none
+    }
+}
+
+@layer utilities {
+    .transition-custom {
+        transition: all 0.15s ease-in-out;
+        -webkit-font-smoothing: inherit;
+        -moz-osx-font-smoothing: inherit;
+    }
+
+    .testIt {
+        clip: rect(0px, 0px, 0px, 0px);
+    }
+}

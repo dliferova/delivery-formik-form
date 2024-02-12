@@ -1,29 +1,42 @@
-import { useState } from "react"
-import DeliveryTypeTabs from "../../components/tabs/Tabs.tsx"
+import { SetStateAction, useEffect, useState } from "react"
 import DeliveryForm from "../../components/form/DeliveryForm.tsx"
-import { deliveryMethodType } from "../../types/types.ts"
+import {
+  citiesDeliveryDataApiTypes,
+  citiesDeliveryDataTypes,
+  deliveryDataApi,
+} from "../../types/api.ts"
 
 const Delivery = () => {
-  const [activeDeliveryType, setActiveDeliveryType] =
-    useState<deliveryMethodType>(0)
+  const [citiesData, setCitiesData] = useState<citiesDeliveryDataTypes | null>(
+    null,
+  )
 
-  const onDeliveryTabChange = (tabId: deliveryMethodType) => {
-    setActiveDeliveryType(tabId)
+  {
+    /* Загружаем данные с АПИ + сохраняем в локальный стейт */
   }
 
+  useEffect(() => {
+    fetch("https://mock.htmlacademy.pro/delivery/db")
+      .then((response) => response.json())
+      .then((data: deliveryDataApi) => {
+        console.log("1. data:", data)
+        const formattedData: SetStateAction<citiesDeliveryDataTypes | null> =
+          data.cities.map((item: citiesDeliveryDataApiTypes) => ({
+            id: item["id"],
+            cityId: item["city-id"],
+            city: item["city"],
+            deliveryPoints: item["delivery-points"],
+          }))
+        setCitiesData(formattedData)
+      })
+  }, [])
+
+  console.log("3. citiesData", citiesData)
+
   return (
-    <main className="w-[920px] pt-[64px] pb-[80px] pl-[76px] pr-[76px] m-auto bg-white">
+    <main className="main">
       <h1 className="hidden">Оформление заказа</h1>
-      <div>
-        <h2 className="text-4xl font-bold mb-8">
-          Выберите способ получения товара
-        </h2>
-        <DeliveryTypeTabs
-          handleTabChange={onDeliveryTabChange}
-          activeDeliveryType={activeDeliveryType}
-        />
-        <DeliveryForm activeDeliveryType={activeDeliveryType} />
-      </div>
+      {citiesData && <DeliveryForm citiesData={citiesData} />}
     </main>
   )
 }

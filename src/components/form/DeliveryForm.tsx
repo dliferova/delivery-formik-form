@@ -1,29 +1,28 @@
-import PaymentMethodSelector from "../paymentMethodSelector/paymentMethodSelector.tsx"
 import { Form, Formik } from "formik"
+import { DeliveryVariants, PaymentVariants } from "../../types/enums.ts"
+import { DeliveryFormValuesTypes } from "../../types/types.ts"
+import { citiesDeliveryDataTypes } from "../../types/api.ts"
+import DeliveryTypeTabs from "../deliveryVariantTabs/deliveryVariantTabs.tsx"
 import PickUp from "./pickUp/pickUp.tsx"
 import Delivery from "./delivery/delivery.tsx"
-import { PaymentVariants } from "../../types/enums.ts"
-import { deliveryMethodType } from "../../types/types.ts"
-
-interface MyFormValues {
-  deliveryMethod: deliveryMethodType
-  city: string
-  pickPoint: string
-  paymentMethod: PaymentVariants.Cash | PaymentVariants.Card
-}
-
-const initialValues: MyFormValues = {
-  deliveryMethod: 0,
-  city: "",
-  pickPoint: "",
-  paymentMethod: PaymentVariants.Card,
-}
 
 const DeliveryForm = ({
-  activeDeliveryType,
+  citiesData,
 }: {
-  activeDeliveryType: deliveryMethodType
+  citiesData: citiesDeliveryDataTypes
 }) => {
+  const initialValues: DeliveryFormValuesTypes = {
+    deliveryVariant: DeliveryVariants.PickUp,
+    cityId: citiesData[0].cityId,
+    pickUpPointAddress: citiesData[0].deliveryPoints[0].address,
+    deliveryAddress: "",
+    deliveryData: "",
+    deliveryTime: "",
+    paymentMethod: PaymentVariants.Card,
+    cardNumber: "",
+    phoneNumber: "",
+  }
+
   return (
     <Formik
       initialValues={initialValues}
@@ -33,22 +32,25 @@ const DeliveryForm = ({
         alert(JSON.stringify(values, null, 2))
       }}
     >
-      {({ values }) => (
-        <Form>
-          {(() => {
-            switch (activeDeliveryType) {
-              case 0:
-                return <PickUp values={values} />
-              case 1:
-                return <Delivery />
-              default:
-                return null
-            }
-          })()}
-          <PaymentMethodSelector activeDeliveryType={activeDeliveryType} />
-          <button type="submit">Подтвердить</button>
-        </Form>
-      )}
+      {({ values }) => {
+        console.log("FORMIK VALUES____", values)
+        return (
+          <Form>
+            <DeliveryTypeTabs values={values} />
+            {(() => {
+              switch (values.deliveryVariant) {
+                case DeliveryVariants.PickUp:
+                  return <PickUp citiesData={citiesData} values={values} />
+                case DeliveryVariants.CourierDelivery:
+                  return <Delivery citiesData={citiesData} values={values} />
+                default:
+                  return null
+              }
+            })()}
+            <button type="submit">SUBMIT</button>
+          </Form>
+        )
+      }}
     </Formik>
   )
 }

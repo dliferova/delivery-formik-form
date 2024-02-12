@@ -1,94 +1,97 @@
+import { citiesDeliveryDataTypes } from "../../../types/api.ts"
 import { Field } from "formik"
-import { useEffect, useState } from "react"
+import PaymentMethodSelector from "../../paymentMethodSelector/paymentMethodSelector.tsx"
+import React from "react"
+import { DeliveryFormValuesTypes } from "../../../types/types.ts"
+import { getPickUpPointsInSelectedCity } from "../../../utils/utils.ts"
 
-import { CustomInput } from "../../ui/customInput/customInput.tsx"
-import { cityData, deliveryPoint } from "../../../types/types.ts"
-
-const PickUp = ({ values }: any) => {
-  const [citiesData, setCitiesData] = useState<cityData[] | null>(null)
-
-  useEffect(() => {
-    fetch("https://mock.pages.academy/delivery/db")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Data:", data)
-        const formattedData = data.cities.map((item) => ({
-          id: item["id"],
-          cityId: item["city-id"],
-          city: item["city"],
-          deliveryPoints: item["delivery-points"],
-        }))
-        console.log("formattedData:", formattedData)
-        setCitiesData(formattedData)
-      })
-  }, [])
-
-  const getCityDeliveryPoints = (
-    cityId: string,
-  ): deliveryPoint[] | undefined => {
-    return citiesData?.find((city) => city.cityId === cityId)?.deliveryPoints
-  }
-
+const PickUp = ({
+  citiesData,
+  values,
+}: {
+  citiesData: citiesDeliveryDataTypes
+  values: DeliveryFormValuesTypes
+}) => {
   return (
     <div>
-      {citiesData && (
-        <>
-          <h3 className="text-xl tracking-wide mb-[16px]">Самовывоз</h3>
+      <h2 className="h2 tracking-wide mb-[16px]">Самовывоз</h2>
+      <div className="flex flex-col relative mb-[10px]">
+        <p className="text-zinc-500 mb-[12px]">Город</p>
+        <div
+          role="group"
+          className="input-wrapper--radio-group flex flex-row mb-[29px] flex-wrap relative"
+        >
+          {citiesData.map((item) => (
+            <React.Fragment key={item.cityId}>
+              <Field
+                type="radio"
+                name="cityId"
+                key={item.cityId}
+                value={item.cityId}
+              />
+              <label>{item.city}</label>
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
 
-          <Field name="deliveryMethod" value="0" className="hidden" />
-          <div className="flex flex-col relative mb-[10px]">
-            <div id="city-radio-group" className="mb-[12px]">
-              <p className="text-zinc-500">Город</p>
-            </div>
-            <div
-              role="group"
-              aria-labelledby="city-radio-group"
-              className="flex flex-row relative"
-            >
-              {citiesData.map((item) => (
+      {values.cityId !== "" ? (
+        <div>
+          <p className="text-zinc-500 mb-[12px]">Адрес пункта выдачи заказов</p>
+          <div
+            role="group"
+            className="input-wrapper--radio-group flex flex-row mb-[29px] flex-wrap relative"
+          >
+            {getPickUpPointsInSelectedCity({
+              citiesData: citiesData,
+              activeCityId: values.cityId,
+            })!.map((item) => (
+              <>
                 <Field
-                  key={item.cityId}
-                  component={Input}
-                  name="city"
+                  key={`${item.address}-key}`}
+                  name="pickUpPointAddress"
                   type="radio"
-                  className={"absolute w-[1px] h-[1px] m-[-1px] outline-none"}
-                  value={item.cityId}
-                  title={item.city}
+                  value={item.address}
                 />
-              ))}
-            </div>
+                <label>{item.address}</label>
+              </>
+            ))}
           </div>
-
-          {getCityDeliveryPoints(values.city) && (
-            <div className="flex flex-col relative">
-              <div id="pickPoint-radio-group" className="mb-[12px]">
-                <span className="text-zinc-500">
-                  Адрес пункта выдачи заказов
-                </span>
-              </div>
-              <div
-                role="group"
-                aria-labelledby="pickPoint-radio-group"
-                className="flex flex-row"
-              >
-                {getCityDeliveryPoints(values.city)!.map((item) => (
-                  <Field
-                    key={`${item.address}-key}`}
-                    component={Input}
-                    className={"absolute w-[1px] h-[1px] m-[-1px] outline-none"}
-                    name="pickPoint"
-                    type="radio"
-                    value={item.address}
-                    title={item.address}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-        </>
+        </div>
+      ) : (
+        <></>
       )}
+
+      <PaymentMethodSelector activeDeliveryType={0} />
     </div>
   )
 }
 
 export default PickUp
+
+// {
+//   getCityDeliveryPoints(values.city) && (
+//     <div className="flex flex-col relative">
+//       <div id="pickPoint-radio-group" className="mb-[12px]">
+//         <span className="text-zinc-500">Адрес пункта выдачи заказов</span>
+//       </div>
+//       <div
+//         role="group"
+//         aria-labelledby="pickPoint-radio-group"
+//         className="input-wrapper--radio-group flex flex-row relative mb-[29px] flex-wrap"
+//       >
+//         {getCityDeliveryPoints(values.city)!.map((item) => (
+//           <>
+//             <Field
+//               key={`${item.address}-key}`}
+//               name="pickPoint"
+//               type="radio"
+//               value={item.address}
+//             />
+//             <label>{item.address}</label>
+//           </>
+//         ))}
+//       </div>
+//     </div>
+//   )
+// }
