@@ -11,10 +11,17 @@ const DeliveryForm = ({
 }: {
   citiesData: citiesDeliveryDataTypes
 }) => {
+  const initialCity = citiesData[0]
+
+  console.log(initialCity)
+
   const initialValues: DeliveryFormValuesTypes = {
     deliveryVariant: DeliveryVariants.PickUp,
-    cityId: citiesData[0].cityId,
-    pickUpPointAddress: citiesData[0].deliveryPoints[0].address,
+    cityId: initialCity.cityId,
+    pickUpPointAddress: {
+      address: initialCity.deliveryPoints[0].address,
+      coordinates: initialCity.deliveryPoints[0].coordinates,
+    },
     deliveryAddress: "",
     deliveryData: "",
     deliveryTime: "",
@@ -33,7 +40,8 @@ const DeliveryForm = ({
       }}
     >
       {({ values }) => {
-        console.log("FORMIK VALUES____", values)
+        console.log("Start value", values.pickUpPointAddress)
+
         return (
           <Form>
             <DeliveryTypeTabs values={values} />
@@ -47,7 +55,9 @@ const DeliveryForm = ({
                   return null
               }
             })()}
-            <button type="submit">SUBMIT</button>
+            <button className="btn" type="submit">
+              SUBMIT
+            </button>
           </Form>
         )
       }}

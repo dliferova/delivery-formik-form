@@ -5,8 +5,6 @@ export const PhoneInputRemark = ({
 }: {
   activeDeliveryType: deliveryVariantTypes
 }) => {
-  console.log("real", activeDeliveryType)
-
   return activeDeliveryType === 0 ? (
     <span className="text-sm text-slate-300">
       Товар на складе будет привязан к номеру телефона. В пункте выдачи назовите

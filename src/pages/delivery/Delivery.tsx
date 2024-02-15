@@ -11,15 +11,10 @@ const Delivery = () => {
     null,
   )
 
-  {
-    /* Загружаем данные с АПИ + сохраняем в локальный стейт */
-  }
-
   useEffect(() => {
     fetch("https://mock.htmlacademy.pro/delivery/db")
       .then((response) => response.json())
       .then((data: deliveryDataApi) => {
-        console.log("1. data:", data)
         const formattedData: SetStateAction<citiesDeliveryDataTypes | null> =
           data.cities.map((item: citiesDeliveryDataApiTypes) => ({
             id: item["id"],
@@ -30,8 +25,6 @@ const Delivery = () => {
         setCitiesData(formattedData)
       })
   }, [])
-
-  console.log("3. citiesData", citiesData)
 
   return (
     <main className="main">
