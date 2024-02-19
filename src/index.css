@@ -54,6 +54,19 @@
     .hidden-radio-input {
         @apply absolute w-[1px] h-[1px] m-[-1] outline-none
     }
+
+    .input {
+        width: 100%;
+        height: 56px;
+        padding: 15px 32px;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 26px;
+        border: 2px solid #e2e2e2;
+        border-radius: 4px;
+        transition: border 0.15s ease-in-out;
+        caret-color: #aaaaaa;
+    }
 }
 
 @layer utilities {

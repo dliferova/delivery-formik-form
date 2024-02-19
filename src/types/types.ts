@@ -10,7 +10,7 @@ export interface DeliveryFormValuesTypes {
     coordinates: number[]
   }
   deliveryAddress: string | null
-  deliveryData: string | null
+  deliveryDate: any
   deliveryTime: string | null
   paymentMethod: paymentMethodType
   cardNumber: string | null

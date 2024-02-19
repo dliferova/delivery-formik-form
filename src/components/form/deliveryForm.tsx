@@ -13,8 +13,6 @@ const DeliveryForm = ({
 }) => {
   const initialCity = citiesData[0]
 
-  console.log(initialCity)
-
   const initialValues: DeliveryFormValuesTypes = {
     deliveryVariant: DeliveryVariants.PickUp,
     cityId: initialCity.cityId,
@@ -23,7 +21,7 @@ const DeliveryForm = ({
       coordinates: initialCity.deliveryPoints[0].coordinates,
     },
     deliveryAddress: "",
-    deliveryData: "",
+    deliveryDate: null,
     deliveryTime: "",
     paymentMethod: PaymentVariants.Card,
     cardNumber: "",
@@ -40,8 +38,6 @@ const DeliveryForm = ({
       }}
     >
       {({ values }) => {
-        console.log("Start value", values.pickUpPointAddress)
-
         return (
           <Form>
             <DeliveryTypeTabs values={values} />
