@@ -2,7 +2,7 @@ import { citiesDeliveryDataTypes } from "../../../types/api.ts"
 import { DeliveryFormValuesTypes } from "../../../types/types.ts"
 import { Field } from "formik"
 import CitiesRadioGroup from "../../citiesRadioGroup/citiesRadioGroup.tsx"
-import DatePicker from "../../ui/datePicker/datePicker.tsx"
+import DeliveryDate from "../../deliveryDate/deliveryDate.tsx"
 
 const Delivery = ({
   citiesData,
@@ -29,28 +29,7 @@ const Delivery = ({
             name="deliveryAddress"
           />
         </div>
-
-        <div>
-          <label
-            className="block text-zinc-500 mb-[12px]"
-            htmlFor={"delivery-date"}
-          >
-            Дата доставки
-          </label>
-          <Field
-            id="delivery-date"
-            name="deliveryDate"
-            className="input"
-            type="text"
-            value={values.deliveryDate}
-            component={DatePicker}
-          />
-        </div>
-        <div>
-          <label className="flex flex-col text-zinc-500 mb-[12px]">
-            Время доставки
-          </label>
-        </div>
+        <DeliveryDate values={values} />
       </div>
     </div>
   )

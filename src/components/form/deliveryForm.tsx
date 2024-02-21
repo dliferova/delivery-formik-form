@@ -22,7 +22,10 @@ const DeliveryForm = ({
     },
     deliveryAddress: "",
     deliveryDate: null,
-    deliveryTime: "",
+    deliveryTime: {
+      fromMinutes: 600,
+      toMinutes: 720,
+    },
     paymentMethod: PaymentVariants.Card,
     cardNumber: "",
     phoneNumber: "",
