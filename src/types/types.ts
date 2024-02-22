@@ -13,11 +13,11 @@ export interface DeliveryFormValuesTypes {
   pickUpPointAddress: {
     address: string
     coordinates: number[]
-  }
+  } | null
   deliveryAddress: string | null
   deliveryDate: string | null
   deliveryTime: deliveryTimeType | null
   paymentMethod: paymentMethodType
   cardNumber: string | null
-  phoneNumber: string
+  phoneNumber: string | null
 }

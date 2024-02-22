@@ -1,5 +1,5 @@
 import { SetStateAction, useEffect, useState } from "react"
-import DeliveryForm from "../../components/form/deliveryForm.tsx"
+import DeliveryForm from "../../components/deliveryForm/deliveryForm.tsx"
 import {
   citiesDeliveryDataApiTypes,
   citiesDeliveryDataTypes,

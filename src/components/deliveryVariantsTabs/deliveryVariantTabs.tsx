@@ -1,20 +1,22 @@
 import Banner from "../ui/banner/banner.tsx"
-import { Field } from "formik"
+import { Field, useFormikContext } from "formik"
 import { DeliveryVariants } from "../../types/enums.ts"
 import { DeliveryFormValuesTypes } from "../../types/types.ts"
 
-const DeliveryTypeTabs = ({ values }: { values: DeliveryFormValuesTypes }) => {
+const DeliveryVariantsTabs = () => {
+  const { values }: { values: DeliveryFormValuesTypes } = useFormikContext()
   return (
     <>
       <h2 className="h2">Выберите способ получения товара</h2>
       <div className="flex flex-row justify-between gap-6 mb-10">
         <div className="radio-option relative">
-          <label>
+          <label htmlFor="delivery-method-variant-pickup">
             <Field
-              className="hidden-radio-input"
+              id="delivery-method-variant-pickup"
               type="radio"
               name="deliveryVariant"
               value={DeliveryVariants.PickUp}
+              className="hidden-radio-input"
             />
             <Banner
               isActive={values.deliveryVariant === DeliveryVariants.PickUp}
@@ -24,12 +26,13 @@ const DeliveryTypeTabs = ({ values }: { values: DeliveryFormValuesTypes }) => {
         </div>
 
         <div className="radio-option relative">
-          <label>
+          <label htmlFor="delivery-method-variant-сourier">
             <Field
-              className="hidden-radio-input"
+              id="delivery-method-variant-сourier"
               type="radio"
               name="deliveryVariant"
               value={DeliveryVariants.CourierDelivery}
+              className="hidden-radio-input"
             />
             <Banner
               isActive={
@@ -44,4 +47,4 @@ const DeliveryTypeTabs = ({ values }: { values: DeliveryFormValuesTypes }) => {
   )
 }
 
-export default DeliveryTypeTabs
+export default DeliveryVariantsTabs

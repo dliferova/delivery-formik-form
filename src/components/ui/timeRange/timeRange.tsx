@@ -1,8 +1,10 @@
 import { DeliveryFormValuesTypes } from "../../../types/types.ts"
-import { Field, useField } from "formik"
+import { Field, useField, useFormikContext } from "formik"
 import { useEffect, useState } from "react"
 
-const TimeRange = ({ values }: { values: DeliveryFormValuesTypes }) => {
+const TimeRange = () => {
+  const { values }: { values: DeliveryFormValuesTypes } = useFormikContext()
+
   const [uiFormattedTime, setUiFormattedTime] = useState<string | undefined>(
     undefined,
   )

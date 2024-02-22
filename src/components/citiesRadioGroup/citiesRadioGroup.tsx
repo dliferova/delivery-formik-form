@@ -1,14 +1,19 @@
-import React from "react"
-import { Field } from "formik"
+import { Field, useFormikContext } from "formik"
 import { citiesDeliveryDataTypes } from "../../types/api.ts"
+import { DeliveryFormValuesTypes } from "../../types/types.ts"
+import { Browser } from "leaflet"
+import touch = Browser.touch
+import React from "react"
 
 const CitiesRadioGroup = ({
   citiesData,
 }: {
   citiesData: citiesDeliveryDataTypes
 }) => {
+  const { errors, touched }: { errors: any; touched: any } = useFormikContext()
+
   return (
-    <div>
+    <div className="flex flex-col relative">
       <p className="text-zinc-500 mb-[12px]">Город</p>
       <div
         role="group"
@@ -25,6 +30,9 @@ const CitiesRadioGroup = ({
               value={item.cityId}
             />
             <label htmlFor={item.cityId}>{item.city}</label>
+            {errors.cityId && touched.cityId ? (
+              <div>{errors.cityId}</div>
+            ) : null}
           </React.Fragment>
         ))}
       </div>

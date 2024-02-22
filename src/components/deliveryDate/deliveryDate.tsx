@@ -1,28 +1,13 @@
-import { Field } from "formik"
-import DatePicker from "../ui/datePicker/datePicker.tsx"
-import { DeliveryFormValuesTypes } from "../../types/types.ts"
 import TimeRange from "../ui/timeRange/timeRange.tsx"
+import DateInput from "../ui/dateInput/dateInput.tsx"
 
-const DeliveryDate = ({ values }: { values: DeliveryFormValuesTypes }) => {
+const DeliveryDate = () => {
   return (
-    <div className="mb-4">
+    <div className="flex flex-col">
       <div className="mb-[12px]">
-        <label
-          className="block text-zinc-500 mb-[12px]"
-          htmlFor={"delivery-date"}
-        >
-          Дата доставки
-        </label>
-        <Field
-          id="delivery-date"
-          name="deliveryDate"
-          className="input"
-          type="text"
-          value={values.deliveryDate}
-          component={DatePicker}
-        />
+        <DateInput />
       </div>
-      <TimeRange values={values} />
+      <TimeRange />
     </div>
   )
 }

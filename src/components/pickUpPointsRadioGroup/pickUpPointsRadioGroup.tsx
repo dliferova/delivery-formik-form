@@ -1,15 +1,14 @@
 import { getPickUpPointsInSelectedCity } from "../../utils/utils.ts"
-import { Field, useField } from "formik"
+import { Field, useField, useFormikContext } from "formik"
 import MapComponent from "../map/map.tsx"
 import { DeliveryFormValuesTypes } from "../../types/types.ts"
 import { citiesDeliveryDataTypes } from "../../types/api.ts"
+import React from "react"
 
-const PickUpRadioGroup = ({
+const PickUpPointsRadioGroup = ({
   citiesData,
-  values,
 }: {
   citiesData: citiesDeliveryDataTypes
-  values: DeliveryFormValuesTypes
 }) => {
   const [field, meta, helpers] =
     useField<DeliveryFormValuesTypes["pickUpPointAddress"]>(
@@ -23,6 +22,8 @@ const PickUpRadioGroup = ({
     })
   }
 
+  const { values }: { values: DeliveryFormValuesTypes } = useFormikContext()
+
   return (
     <div>
       <p className="text-zinc-500 mb-[12px]">Адрес пункта выдачи заказов</p>
@@ -34,7 +35,7 @@ const PickUpRadioGroup = ({
           citiesData: citiesData,
           activeCityId: values.cityId,
         })!.map((item, idx) => (
-          <>
+          <React.Fragment key={idx}>
             <Field
               className="hidden-radio-input"
               id={`address-${idx}`}
@@ -45,15 +46,17 @@ const PickUpRadioGroup = ({
               onClick={() => handleFieldClick(item.address, item.coordinates)}
             />
             <label htmlFor={`address-${idx}`}>{item.address}</label>
-          </>
+          </React.Fragment>
         ))}
       </div>
-      <MapComponent
-        markerPosition={values.pickUpPointAddress.coordinates}
-        centerPosition={values.pickUpPointAddress.coordinates}
-      />
+      {values.pickUpPointAddress?.coordinates && (
+        <MapComponent
+          markerPosition={values.pickUpPointAddress.coordinates}
+          centerPosition={values.pickUpPointAddress.coordinates}
+        />
+      )}
     </div>
   )
 }
 
-export default PickUpRadioGroup
+export default PickUpPointsRadioGroup
