@@ -1,4 +1,4 @@
-import { Form, Formik } from "formik"
+import { Form, Formik, FormikHelpers } from "formik"
 import { DeliveryVariants, PaymentVariants } from "../../types/enums.ts"
 import { DeliveryFormValuesTypes } from "../../types/types.ts"
 import { citiesDeliveryDataTypes } from "../../types/api.ts"
@@ -8,12 +8,16 @@ import PickUpPointsRadioGroup from "../pickUpPointsRadioGroup/pickUpPointsRadioG
 import PaymentInfo from "../paymentInfo/paymentInfo.tsx"
 import CourierDeliveryInfo from "../courierDeliveryInfo/courierDeliveryInfo.tsx"
 import Button from "../ui/button/button.tsx"
+import { validationSchema } from "./validationSchema.ts"
+import { useState } from "react"
 
 const DeliveryForm = ({
   citiesData,
 }: {
   citiesData: citiesDeliveryDataTypes
 }) => {
+  const [isSubmitting, setSubmitting] = useState(false)
+
   const initialValues: DeliveryFormValuesTypes = {
     deliveryVariant: DeliveryVariants.PickUp,
     cityId: citiesData[0].cityId,
@@ -32,14 +36,52 @@ const DeliveryForm = ({
     phoneNumber: null,
   }
 
+  const handleFormSubmit = async (
+    values: DeliveryFormValuesTypes,
+    formikHelpers: FormikHelpers<DeliveryFormValuesTypes>,
+  ) => {
+    try {
+      setSubmitting(true)
+
+      const formData = {
+        ...values,
+        pickUpPointAddress:
+          values.deliveryVariant === DeliveryVariants.CourierDelivery
+            ? null
+            : values.pickUpPointAddress,
+      }
+
+      const response = await fetch(
+        "https://mock.htmlacademy.pro/delivery/requests",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        },
+      )
+
+      if (!response.ok) {
+        throw new Error("Ошибка при отправке данных на сервер")
+      }
+
+      formikHelpers.resetForm()
+      alert("Данные успешно отправлены на сервер!")
+    } catch (error) {
+      console.error("Error in handleFormSubmit:", error)
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={async (values) => {
-        console.log("Om submit event")
-        await new Promise((r) => setTimeout(r, 500))
-        alert(JSON.stringify(values, null, 2))
-      }}
+      validationSchema={validationSchema}
+      onSubmit={(values, formikHelpers) =>
+        handleFormSubmit(values, formikHelpers)
+      }
     >
       {({ values }) => {
         return (
@@ -66,7 +108,9 @@ const DeliveryForm = ({
             <div className="mb-[43px]">
               <PaymentInfo />
             </div>
-            <Button children={"Submit"} type="submit" />
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Отправка..." : "Отправить"}
+            </Button>
           </Form>
         )
       }}

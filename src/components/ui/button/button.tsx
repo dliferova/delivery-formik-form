@@ -6,7 +6,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => (
-    <button ref={ref} className="btn transition-custom">
+    <button ref={ref} className="btn transition-custom" type={props.type}>
       {props.children}
     </button>
   ),
