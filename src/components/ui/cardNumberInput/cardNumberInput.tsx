@@ -1,4 +1,4 @@
-import React, { useState, useRef, ChangeEvent } from "react"
+import React, { ChangeEvent, useRef, useState } from "react"
 
 const CardNumberInput: React.FC = () => {
   const [cardNumber, setCardNumber] = useState<string[]>(["", "", "", ""])
@@ -18,7 +18,7 @@ const CardNumberInput: React.FC = () => {
 
   return (
     <>
-      <p className="text-zinc-500 mb-[12px]">Номер карты</p>
+      <p className="label-text">Номер карты</p>
       <div className="flex flex-row w-[484px]">
         {cardNumber.map((part, index) => (
           <input

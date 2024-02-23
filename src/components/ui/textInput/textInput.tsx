@@ -10,7 +10,7 @@ const TextInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
   (props, ref) => (
     <>
       {props.label !== undefined ? (
-        <label className="text-zinc-500 mb-[12px]" htmlFor={props.id}>
+        <label className="label-text" htmlFor={props.id}>
           {props.label}
         </label>
       ) : (

@@ -38,7 +38,9 @@ const PaymentInfo = () => {
         </div>
       </div>
       {values.paymentMethod === PaymentVariants.Card ? (
-        <CardNumberInput />
+        <div className="mb-[29px]">
+          <CardNumberInput />
+        </div>
       ) : null}
       <PhoneInput />
     </>

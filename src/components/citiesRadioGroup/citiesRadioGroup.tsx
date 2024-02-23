@@ -11,7 +11,7 @@ const CitiesRadioGroup = ({
 
   return (
     <div className="flex flex-col relative">
-      <p className="text-zinc-500 mb-[12px]">Город</p>
+      <p className="label-text">Город</p>
       <div
         role="group"
         className="input-wrapper--radio-group flex flex-row row-gap-[12px] mb-[29px] flex-wrap relative"

@@ -34,10 +34,7 @@ const TimeRange = () => {
     <>
       {values.deliveryTime && (
         <div className="input-wrapper input-wrapper--range">
-          <label
-            htmlFor="delivery-user-time-delivery"
-            className="block text-zinc-500 mb-[12px]"
-          >
+          <label htmlFor="delivery-user-time-delivery" className="label-text">
             Время доставки
           </label>
           <div className="range-slider-wrapper">

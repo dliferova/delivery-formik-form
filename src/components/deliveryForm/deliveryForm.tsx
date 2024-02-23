@@ -87,24 +87,26 @@ const DeliveryForm = ({
         return (
           <Form>
             <DeliveryVariantsTabs />
-            <h2 className="h2 tracking-wide mb-[16px]">
-              {values.deliveryVariant === DeliveryVariants.PickUp
-                ? "Самовывоз"
-                : "Доставка"}
-            </h2>
-            <div className="mb-[10px]">
-              <CitiesRadioGroup citiesData={citiesData} />
+            <div className="mb-10">
+              <h2 className="h2 tracking-wide mb-[16px]">
+                {values.deliveryVariant === DeliveryVariants.PickUp
+                  ? "Самовывоз"
+                  : "Доставка"}
+              </h2>
+              <div className="mb-[10px]">
+                <CitiesRadioGroup citiesData={citiesData} />
+              </div>
+              {(() => {
+                switch (values.deliveryVariant) {
+                  case DeliveryVariants.PickUp:
+                    return <PickUpPointsRadioGroup citiesData={citiesData} />
+                  case DeliveryVariants.CourierDelivery:
+                    return <CourierDeliveryInfo />
+                  default:
+                    return null
+                }
+              })()}
             </div>
-            {(() => {
-              switch (values.deliveryVariant) {
-                case DeliveryVariants.PickUp:
-                  return <PickUpPointsRadioGroup citiesData={citiesData} />
-                case DeliveryVariants.CourierDelivery:
-                  return <CourierDeliveryInfo />
-                default:
-                  return null
-              }
-            })()}
             <div className="mb-[43px]">
               <PaymentInfo />
             </div>

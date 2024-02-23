@@ -26,7 +26,7 @@ const PickUpPointsRadioGroup = ({
 
   return (
     <div>
-      <p className="text-zinc-500 mb-[12px]">Адрес пункта выдачи заказов</p>
+      <p className="label-text">Адрес пункта выдачи заказов</p>
       <div
         role="group"
         className="input-wrapper--radio-group flex flex-row gap-y-[12px] mb-[29px] flex-wrap relative"
