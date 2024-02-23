@@ -34,8 +34,12 @@
 }
 
 @layer components {
+    .wrapper {
+        @apply flex justify-center items-center overflow-hidden pt-[40px] pr-[20px] pb-[80px] pl-[20px] bg-[#f6f8fb]
+    }
+
     .main {
-        @apply w-[920px] pt-[64px] pb-[80px] pl-[76px] pr-[76px] m-auto bg-white
+        @apply shrink-0 w-[920px] pt-[64px] pb-[80px] pl-[76px] pr-[76px] m-auto bg-white
     }
 
     .h2 {
@@ -54,6 +58,18 @@
     .hidden-radio-input {
         @apply absolute w-[1px] h-[1px] m-[-1] outline-none
     }
+}
+
+@layer utilities {
+    .transition-custom {
+        transition: all 0.15s ease-in-out;
+        -webkit-font-smoothing: inherit;
+        -moz-osx-font-smoothing: inherit;
+    }
+
+    .testIt {
+        clip: rect(0px, 0px, 0px, 0px);
+    }
 
     .input {
         width: 100%;
@@ -66,18 +82,6 @@
         border-radius: 4px;
         transition: border 0.15s ease-in-out;
         caret-color: #aaaaaa;
-    }
-}
-
-@layer utilities {
-    .transition-custom {
-        transition: all 0.15s ease-in-out;
-        -webkit-font-smoothing: inherit;
-        -moz-osx-font-smoothing: inherit;
-    }
-
-    .testIt {
-        clip: rect(0px, 0px, 0px, 0px);
     }
 }
 
