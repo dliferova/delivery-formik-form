@@ -182,10 +182,18 @@
         margin-bottom: 24px;
     }
 
+    .input-wrapper--input {
+        display: flex;
+        width: 484px;
+    }
 }
 
 @layer utilities {
     .label-text {
         @apply block text-zinc-500 mb-2.5
+    }
+
+    .input-max-width {
+        max-width: 484px;
     }
 }

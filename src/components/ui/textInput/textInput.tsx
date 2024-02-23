@@ -8,7 +8,7 @@ interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const TextInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
   (props, ref) => (
-    <>
+    <div className="input-wrapper input-wrapper--input">
       {props.label !== undefined ? (
         <label className="label-text" htmlFor={props.id}>
           {props.label}
@@ -32,7 +32,7 @@ const TextInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
           </div>
         )}
       </Field>
-    </>
+    </div>
   ),
 )
 
