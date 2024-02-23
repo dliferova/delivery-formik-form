@@ -1,9 +1,6 @@
+import React from "react"
 import { Field, useFormikContext } from "formik"
 import { citiesDeliveryDataTypes } from "../../types/api.ts"
-import { DeliveryFormValuesTypes } from "../../types/types.ts"
-import { Browser } from "leaflet"
-import touch = Browser.touch
-import React from "react"
 
 const CitiesRadioGroup = ({
   citiesData,

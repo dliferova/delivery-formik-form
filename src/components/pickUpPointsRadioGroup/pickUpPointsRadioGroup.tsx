@@ -1,7 +1,7 @@
 import { getPickUpPointsInSelectedCity } from "../../utils/utils.ts"
 import { Field, useField, useFormikContext } from "formik"
 import MapComponent from "../map/map.tsx"
-import { DeliveryFormValuesTypes } from "../../types/types.ts"
+import { DeliveryFormValuesTypes, FormikOptions } from "../../types/types.ts"
 import { citiesDeliveryDataTypes } from "../../types/api.ts"
 import React from "react"
 
@@ -22,7 +22,7 @@ const PickUpPointsRadioGroup = ({
     })
   }
 
-  const { values }: { values: DeliveryFormValuesTypes } = useFormikContext()
+  const { values }: FormikOptions = useFormikContext()
 
   return (
     <div>
